@@ -1,7 +1,10 @@
-console.log(`index.js ran at ${Date()}`)
+console.log(`index.js at ${Date()}`);
 
-(async function(){
+(async function(){ // anonymous asynchronous execution
     //lala = await import('../gpt/min.js')
-    caterpillar = await import('./caterpillar.js')
-    //console.log('hello')
+    //caterpillar = await import('./caterpillar.js')
+    console.log('hello')
 })();
+
+//const help=9
+//export {help}
