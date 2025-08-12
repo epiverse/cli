@@ -6,6 +6,7 @@ async function msg(txt=`${Date()}`,div='epiverseMSG'){
         div = document.querySelector(`#${div}`)
     }
     div.style.fontSize='small'
+    div.style.color='maroon'
     for(let i=0;i<=txt.length;i++){
         await sleep(5)
         div.innerText=txt.slice(0,i)
