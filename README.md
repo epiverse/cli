@@ -1,4 +1,4 @@
 # cli
-browser commandline interface for epiVerse,
+Browser commandline interface for epiVerse embeddings;
 
-live ES6 module at https://epiverse.github.io/cli/cli.mjs
+ES6 module at https://epiverse.github.io/cli/cli.mjs.
