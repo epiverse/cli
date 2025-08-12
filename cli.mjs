@@ -6,10 +6,13 @@ async function msg(txt=`${Date()}`,div='epiverseMSG'){
         div = document.querySelector(`#${div}`)
     }
     div.style.fontSize='small'
-    for(let i=0;i<txt.length;i++){
+    for(let i=0;i<=txt.length;i++){
         await sleep(5)
         div.innerText=txt.slice(0,i)
     }
 }
+function help(){
+    window.open('https://github.com/epiverse/cli/wiki/CLI')
+}
 
-export{msg}
+export{msg,help}
