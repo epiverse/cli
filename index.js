@@ -1,9 +1,8 @@
 console.log(`index.js at ${Date()}`);
 
 (async function(){ // anonymous asynchronous execution
-    //lala = await import('../gpt/min.js')
-    //caterpillar = await import('./caterpillar.js')
-    console.log('hello')
+    let cli = await import('./cli.mjs')
+    cli.msg()
 })();
 
 //const help=9
