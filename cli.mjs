@@ -1,7 +1,7 @@
 const hello = "world"
 
 const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
-async function msg(txt=`${Date()}`,div='epiverseMSG'){
+async function msg(txt=`${Date()}`,div='cliDiv'){
     if(typeof(div)=='string'){
         div = document.querySelector(`#${div}`)
     }
