@@ -19,6 +19,7 @@
         <!-- <div id="epiverseUI">...</div> -->
         <div id="cliDiv">...</div>
         <script>
+            console.log('cli methods:')
             import('https://epiverse.github.io/cli/cli.mjs').then(function(fun){
                 cli=fun;
                 console.log(Object.getOwnPropertyNames(cli))
