@@ -20,7 +20,8 @@
         <div id="cliDiv">...</div>
         <script>
             console.log('cli methods:')
-            import('https://epiverse.github.io/cli/cli.mjs').then(function(fun){
+            // import('https://epiverse.github.io/cli/cli.mjs').then(function(fun){
+            import('./cli.mjs').then(function(fun){
                 cli=fun;
                 console.log(Object.getOwnPropertyNames(cli))
             });
