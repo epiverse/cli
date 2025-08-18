@@ -62,5 +62,22 @@ function tsv2vec(tsv) {
     return tsv.split(/\n/g).map(row=>row.split(/\t/g).map(c=>parseFloat(c)))
 }
 
+async function readTextFile(fun=console.log) {
+    const JSZip = (await import('https://esm.sh/jszip@3.10.1')).default
+    let loadFile = document.createElement('input')
+    loadFile.type = 'file';
+    loadFile.hidden = true;
+    document.body.appendChild(loadFile);
+    loadFile.onchange = evt => {
+        let fr = new FileReader();
+        fr.onload = function() {
+            fun(fr.result)
+            loadFile.parentElement.removeChild(loadFile)
+            // cleanup
+        }
+        fr.readAsText(loadFile.files[0]);
+    }
+    loadFile.click()
+}
 
-export{msg,help,unzipURL,saveFile,vec2tsv,tsv2vec}
+export{msg,help,unzipURL,saveFile,vec2tsv,tsv2vec,readTextFile}
