@@ -194,4 +194,4 @@ function loadAndUnzipFile() {
     });
 }
 
-export{msg,help,unzipURL,saveFile,vec2tsv,tsv2vec,readTextFile}
+export{msg,help,unzipURL,saveFile,vec2tsv,tsv2vec,readTextFile,loadAndUnzipFile}
