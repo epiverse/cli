@@ -52,4 +52,15 @@ function saveFile(txt=':-)', fileName="hello.txt") {
     return a
 }
 
-export{msg,help,unzipURL,saveFile}
+// simple vectors to tsv conversion
+function vec2tsv(vec) {
+    return vec.map(v => v.join('\t')).join('\n')
+}
+
+// simple tsv to vectors conversion
+function tsv2vec(tsv) {
+    return tsv.split(/\n/g).map(row=>row.split(/\t/g).map(c=>parseFloat(c)))
+}
+
+
+export{msg,help,unzipURL,saveFile,vec2tsv,tsv2vec}
