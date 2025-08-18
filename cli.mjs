@@ -62,7 +62,7 @@ function tsv2vec(tsv) {
     return tsv.split(/\n/g).map(row=>row.split(/\t/g).map(c=>parseFloat(c)))
 }
 
-async function readTextFile(fun=console.log) {
+async function readTextFile(fun=console.log) { //read directly from FS
     const JSZip = (await import('https://esm.sh/jszip@3.10.1')).default
     let loadFile = document.createElement('input')
     loadFile.type = 'file';
