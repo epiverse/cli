@@ -38,4 +38,18 @@ async function unzipURL(url="https://raw.githubusercontent.com/epiverse/pathembe
     console.log(`... ${content.length} embedded vectors loaded and unzipped`)
 }
 
-export{msg,help,unzipURL}
+function saveFile(txt=':-)', fileName="hello.txt") {
+    var bb = new Blob([txt]);
+    var url = URL.createObjectURL(bb);
+    var a = document.createElement('a')
+    a.hidden = true
+    document.body.appendChild(a)
+    a.href = url;
+    a.download = fileName;
+    a.click()
+    a.parentElement.removeChild(a)
+    // cleanup
+    return a
+}
+
+export{msg,help,unzipURL,saveFile}
