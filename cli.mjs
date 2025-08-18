@@ -140,57 +140,32 @@ function readTextFile() {
  * @returns {Promise<Map<string, any>>} A Promise that resolves with a Map,
  * where keys are the filenames (string) and values are their content (e.g., text, ArrayBuffer).
  */
-function loadAndUnzipFile() {
-    // Wrap the entire logic in a Promise to handle the asynchronous file selection
-    return new Promise((resolve, reject) => {
-        const input = document.createElement('input');
-        input.type = 'file';
-        input.accept = '.zip';
 
-        // This function will be called when the user selects a file
-        input.onchange = async (event) => {
+async function loadAndUnzipFile() {
+    const fileInput = document.createElement('input');
+    fileInput.type = 'file';
+    fileInput.accept = '.zip'; // Suggests only accepting zip files
+
+    // Create a Promise to handle the asynchronous file selection
+    return new Promise((resolve, reject) => {
+        fileInput.addEventListener('change', async (event) => {
             const file = event.target.files[0];
+
             if (!file) {
-                // If the user cancels the file picker, reject the promise
                 reject(new Error('No file selected.'));
                 return;
             }
 
             try {
-                // 1. Load the file into JSZip
-                const zip = await JSZip.loadAsync(file);
-                
-                // 2. Create a map to store the results
-                const fileContents = new Map();
-                
-                // 3. Create an array of promises for each file's content
-                const promises = [];
-                zip.forEach((relativePath, zipEntry) => {
-                    // Don't process directories
-                    if (!zipEntry.dir) {
-                        const promise = zipEntry.async('string') // or 'blob', 'arraybuffer', etc.
-                            .then(content => {
-                                fileContents.set(zipEntry.name, content);
-                            });
-                        promises.push(promise);
-                    }
-                });
-
-                // 4. Wait for all files to be decompressed
-                await Promise.all(promises);
-
-                // 5. Resolve the main promise with the map of file contents
-                resolve(fileContents);
-
+                const JSZip = (await import('https://esm.sh/jszip@3.10.1')).default
+                const zip = await JSZip.loadAsync(file); // Load the zip file
+                resolve(zip); // Resolve with the JSZip object
             } catch (error) {
-                // If any error occurs during unzipping, reject the promise
-                console.error('Error processing zip file:', error);
-                reject(new Error(`Failed to unzip file: ${error.message}`));
+                reject(new Error('Failed to load or unzip the file: ' + error.message)); // Catch any errors
             }
-        };
+        });
 
-        // Programmatically trigger the file input dialog
-        input.click();
+        fileInput.click(); // Programmatically trigger the file input
     });
 }
 
