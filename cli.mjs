@@ -62,22 +62,75 @@ function tsv2vec(tsv) {
     return tsv.split(/\n/g).map(row=>row.split(/\t/g).map(c=>parseFloat(c)))
 }
 
-async function readTextFile(fun=console.log) { //read directly from FS
-    const JSZip = (await import('https://esm.sh/jszip@3.10.1')).default
-    let loadFile = document.createElement('input')
-    loadFile.type = 'file';
-    loadFile.hidden = true;
-    document.body.appendChild(loadFile);
-    loadFile.onchange = evt => {
-        let fr = new FileReader();
-        fr.onload = function() {
-            fun(fr.result)
-            loadFile.parentElement.removeChild(loadFile)
-            // cleanup
+/**
+ * Opens a file picker and returns the text content of the selected file.
+ * This function returns a Promise, so you should use `await` to get the result.
+ * @returns {Promise<string>} A Promise that resolves with the file's text content.
+ * It rejects if the user cancels the file selection or if a file-reading error occurs.
+ */
+function readTextFile() {
+  return new Promise((resolve, reject) => {
+    // Create a hidden file input element to trigger the file selection dialog.
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.style.display = 'none'; // Use style.display for hiding
+    document.body.appendChild(input);
+
+    // --- Event Handlers & Cleanup ---
+
+    // This function removes the input element and the 'focus' event listener.
+    // It's called when the operation is complete (success, error, or cancel).
+    const cleanup = () => {
+      document.body.removeChild(input);
+      window.removeEventListener('focus', handleCancel);
+    };
+
+    // This handler runs when the user has selected a file.
+    input.onchange = () => {
+      const file = input.files[0];
+      if (!file) {
+        cleanup();
+        // Reject the promise if, for some reason, no file is selected.
+        return reject(new Error('No file was selected.'));
+      }
+
+      const reader = new FileReader();
+
+      // When the file is successfully read, resolve the promise with the content.
+      reader.onload = (e) => {
+        cleanup();
+        resolve(e.target.result);
+      };
+
+      // If there's an error reading the file, reject the promise.
+      reader.onerror = (e) => {
+        cleanup();
+        reject(new Error('Error reading file:', e.target.error));
+      };
+
+      // Start reading the file as text.
+      reader.readAsText(file);
+    };
+
+    // This handler detects when the user closes the file dialog without a selection.
+    const handleCancel = () => {
+      // A brief timeout is needed because the 'onchange' event fires before 'focus'.
+      // This ensures we don't incorrectly assume cancellation if a file was chosen.
+      setTimeout(() => {
+        if (input.files.length === 0) {
+          cleanup();
+          reject(new Error('File selection was canceled.'));
         }
-        fr.readAsText(loadFile.files[0]);
-    }
-    loadFile.click()
+      }, 300);
+    };
+    
+    // The 'focus' event fires on the window when the file dialog is closed.
+    window.addEventListener('focus', handleCancel, { once: true });
+
+    // --- Action ---
+    // Programmatically click the hidden input to open the file dialog.
+    input.click();
+  });
 }
 
 export{msg,help,unzipURL,saveFile,vec2tsv,tsv2vec,readTextFile}
