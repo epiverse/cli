@@ -62,6 +62,10 @@ function tsv2vec(tsv) {
     return tsv.split(/\n/g).map(row=>row.split(/\t/g).map(c=>parseFloat(c)))
 }
 
+function docs2meta(docs){
+    console.log('docs:',docs)
+}
+
 /**
  * Opens a file picker and returns the text content of the selected file.
  * This function returns a Promise, so you should use `await` to get the result.
@@ -169,4 +173,4 @@ async function loadAndUnzipFile() {
     });
 }
 
-export{msg,help,unzipURL,saveFile,vec2tsv,tsv2vec,readTextFile,loadAndUnzipFile}
+export{msg,help,unzipURL,saveFile,vec2tsv,tsv2vec,readTextFile,loadAndUnzipFile, docs2meta}
