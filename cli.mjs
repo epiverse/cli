@@ -63,9 +63,14 @@ function tsv2vec(tsv) {
 }
 
 function docs2meta(docs,attrs){
-    console.log('docs:',docs)
+    // you can use custom attrs
     if(!attrs){
-        attrs = attrs? Object.keys(docs[])
+        attrs = attrs? Object.keys(docs[0])
+    }
+    let tb = attrs.join('\t')
+    // assemble table
+    for( let i=0 ; i<=docs.length ; i++){
+        // ...
     }
     return attrs
 }
