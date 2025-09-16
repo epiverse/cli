@@ -62,8 +62,12 @@ function tsv2vec(tsv) {
     return tsv.split(/\n/g).map(row=>row.split(/\t/g).map(c=>parseFloat(c)))
 }
 
-function docs2meta(docs){
+function docs2meta(docs,attrs){
     console.log('docs:',docs)
+    if(!attrs){
+        attrs = attrs? Object.keys(docs[])
+    }
+    return attrs
 }
 
 /**
