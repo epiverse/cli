@@ -62,17 +62,22 @@ function tsv2vec(tsv) {
     return tsv.split(/\n/g).map(row=>row.split(/\t/g).map(c=>parseFloat(c)))
 }
 
-function docs2meta(docs,attrs){
+async function docs2meta(docs,attrs){ // docs is array of objs
+    if(!docs){
+        docs = await (await fetch('https://raw.githubusercontent.com/epiverse/nico/refs/heads/main/extract.json')).json()
+    }
     // you can use custom attrs
     if(!attrs){
-        attrs = attrs? Object.keys(docs[0])
+        attrs = Object.keys(docs[0])
     }
     let tb = attrs.join('\t')
     // assemble table
-    for( let i=0 ; i<=docs.length ; i++){
-        // ...
+    for( let i=0 ; i<docs.length ; i++){
+        let row = `\n${attrs.map((aj,j)=>{return docs[i][attrs[j]]}).join('\t')}`
+        tb+=row
+        console.log(i,row)
     }
-    return attrs
+    return tb
 }
 
 /**
