@@ -1,12 +1,15 @@
 const hello = "world"
 
 const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
-async function msg(txt=`${Date()}`,div='cliDiv'){
+async function msg(txt=`${Date()}`,div='cliDiv',add=false){
     if(typeof(div)=='string'){
         div = document.querySelector(`#${div}`)
     }
     div.style.fontSize='small'
     div.style.color='maroon'
+    if(add){
+        txt=div.innerText + ' ' + txt
+    }
     for(let i=0;i<=txt.length;i++){
         await sleep(5)
         div.innerText=txt.slice(0,i)
