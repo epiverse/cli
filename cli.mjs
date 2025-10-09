@@ -192,8 +192,8 @@ async function loadModule(name='tcgaReps',url='https://epiverse.github.io/tcgaRe
     if(!url){
         url = `https://epiverse.github.io/${name}/${name}.mjs`
     }
-    console.log('hello',url)
     window[name]=await import(url)
+    console.log(`loaded ${name} from ${url} at \n${Date()}`)
 }
 
 export{
