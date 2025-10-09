@@ -187,4 +187,16 @@ async function loadAndUnzipFile() {
     });
 }
 
-export{msg,help,unzipURL,saveFile,vec2tsv,tsv2vec,readTextFile,loadAndUnzipFile, docs2meta}
+async function loadModule(name='tcgaReps',url='https://epiverse.github.io/tcgaReps.mjs'){
+    if(!url){
+        url = 'https://epiverse.github.io/'+name+'.mjs'
+    }
+    console.log('hello',url)
+}
+
+export{
+    msg,help,unzipURL,
+    saveFile,vec2tsv,tsv2vec,
+    readTextFile,loadAndUnzipFile,
+    docs2meta,loadModule
+}
