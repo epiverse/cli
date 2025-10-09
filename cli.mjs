@@ -192,6 +192,7 @@ async function loadModule(name='tcgaReps',url='https://epiverse.github.io/tcgaRe
         url = 'https://epiverse.github.io/'+name+'.mjs'
     }
     console.log('hello',url)
+    window[name]=await import(url)
 }
 
 export{
