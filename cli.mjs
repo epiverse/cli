@@ -187,9 +187,9 @@ async function loadAndUnzipFile() {
     });
 }
 
-async function loadModule(name='tcgaReps',url='https://epiverse.github.io/tcgaReps.mjs'){
+async function loadModule(name='tcgaReps',url='https://epiverse.github.io/tcgaReps/tcgaReps.mjs'){
     if(!url){
-        url = 'https://epiverse.github.io/'+name+'.mjs'
+        url = `https://epiverse.github.io/${name}/${name}.mjs`
     }
     console.log('hello',url)
     window[name]=await import(url)
