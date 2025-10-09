@@ -188,6 +188,7 @@ async function loadAndUnzipFile() {
 }
 
 async function loadModule(name='tcgaReps',url='https://epiverse.github.io/tcgaReps/tcgaReps.mjs'){
+    // note you can chose the name and url of the es6 module
     if(!url){
         url = `https://epiverse.github.io/${name}/${name}.mjs`
     }
